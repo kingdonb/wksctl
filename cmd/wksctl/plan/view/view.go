@@ -114,7 +114,7 @@ func displayPlan(clusterManifestPath, machinesManifestPath string) error {
 		},
 		Controller: os.ControllerParams{
 			ImageOverride: viewOptions.controllerImage,
-			ImageBuiltin:  "quay.io/wksctl/controller:" + version.ImageTag,
+			ImageBuiltin:  "kingdonb/wks-controller:" + version.ImageTag,
 		},
 		GitData: os.GitParams{
 			GitURL:           viewOptions.gitURL,
