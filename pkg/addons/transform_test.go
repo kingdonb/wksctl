@@ -23,9 +23,9 @@ func TestUpdateImage(t *testing.T) {
 		},
 		// WKS controller's image should just have its repository updated:
 		{
-			image:         "quay.io/wksctl/controller:master",
+			image:         "kingdonb/wks-controller:master",
 			repository:    "172.17.0.2:5000",
-			expectedImage: "172.17.0.2:5000/wksctl/controller:master",
+			expectedImage: "172.17.0.2:5000/kingdonb/wks-controller:master",
 			expectedError: nil,
 		},
 		// Override the namespace a.k.a. organisation by what is provided in
