@@ -433,10 +433,10 @@ func (a *MachineActuator) getNodePlan(providerSpec *baremetalspecv1.BareMetalClu
 	if err != nil {
 		return nil, err
 	}
-	masterIP, err := getInternalAddress(master)
-	if err != nil {
-		return nil, err
-	}
+	// masterIP, err := getInternalAddress(master)
+	// if err != nil {
+	// 	return nil, err
+	// }
 	configMaps, err := a.getProviderConfigMaps(providerSpec)
 	if err != nil {
 		return nil, err
