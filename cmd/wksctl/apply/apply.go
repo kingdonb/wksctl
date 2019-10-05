@@ -149,7 +149,7 @@ func (a *Applier) initiateCluster(clusterManifestPath, machinesManifestPath stri
 		},
 		Controller: wksos.ControllerParams{
 			ImageOverride: controllerImage,
-			ImageBuiltin:  "quay.io/wksctl/controller:" + version.ImageTag,
+			ImageBuiltin:  "kingdonb/wks-controller:" + version.ImageTag,
 		},
 		GitData: wksos.GitParams{
 			GitURL:           a.Params.gitURL,

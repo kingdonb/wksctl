@@ -218,7 +218,7 @@ spec:
         operator: Exists
       containers:
       - name: controller
-        image: quay.io/wksctl/controller:latest
+        image: kingdonb/wks-controller:latest
         command:
         - /bin/controller
         - --verbose
@@ -274,7 +274,7 @@ spec:
         operator: Exists
       containers:
       - name: controller
-        image: quay.io/wksctl/controller:version1.2.3
+        image: kingdonb/wks-controller:version1.2.3
         command:
         - /bin/controller
         - --verbose

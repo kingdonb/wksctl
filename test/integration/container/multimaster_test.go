@@ -274,7 +274,7 @@ func TestMultimasterSetup(t *testing.T) {
 	if shouldRetagPush(t, registryPort) {
 		run(t, "../../../environments/local-docker-registry/retag_push.sh", "-p", strconv.Itoa(registryPort))
 	}
-	run(t, "docker", "tag", fmt.Sprintf("quay.io/wksctl/controller:%s", tag), fmt.Sprintf("localhost:%d/wksctl/controller:%s", registryPort, tag))
+	run(t, "docker", "tag", fmt.Sprintf("kingdonb/wks-controller:%s", tag), fmt.Sprintf("localhost:%d/wksctl/controller:%s", registryPort, tag))
 	run(t, "docker", "push", fmt.Sprintf("localhost:%d/wksctl/controller:%s", registryPort, tag))
 	registryIP := sanitizeIP(run(t, "docker", "inspect", "registry", "--format='{{.NetworkSettings.IPAddress}}'"))
 
