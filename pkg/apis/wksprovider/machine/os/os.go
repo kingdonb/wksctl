@@ -158,6 +158,7 @@ type ControllerParams struct {
 
 // SeedNodeParams groups required inputs to configure a "seed" Kubernetes node.
 type SeedNodeParams struct {
+	ControlPlaneIP       string
 	PublicIP             string
 	PrivateIP            string
 	ClusterManifestPath  string
@@ -258,7 +259,7 @@ func (o OS) CreateSeedNodeSetupPlan(params SeedNodeParams) (*plan.Plan, error) {
 			SSHKeyPath:     params.SSHKeyPath,
 			BootstrapToken: params.BootstrapToken,
 			// TODO: dynamically inject the API server's port.
-			ControlPlaneEndpoint:  fmt.Sprintf("%s:6443", params.PrivateIP),
+			ControlPlaneEndpoint:  fmt.Sprintf("%s:6443", params.ControlPlaneIP),
 			IgnorePreflightErrors: cfg.IgnorePreflightErrors,
 			KubernetesVersion:     kubernetesVersion,
 			CloudProvider:         params.KubeletConfig.CloudProvider,
@@ -437,7 +438,7 @@ func addClusterAPICRDs(b *plan.Builder) ([]string, error) {
 func (o OS) createSeedNodePlanConfigMapManifest(params SeedNodeParams, providerSpec *baremetalspecv1.BareMetalClusterProviderSpec, providerConfigMaps map[string]*v1.ConfigMap, authConfigMap *v1.ConfigMap, kubernetesVersion string) ([]byte, error) {
 	nodeParams := NodeParams{
 		IsMaster:           true,
-		MasterIP:           params.PrivateIP,
+		MasterIP:           params.ControlPlaneIP,
 		MasterPort:         6443, // See TODO in machine_actuator.go
 		KubeletConfig:      params.KubeletConfig,
 		KubernetesVersion:  kubernetesVersion,
