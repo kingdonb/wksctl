@@ -101,6 +101,7 @@ func displayPlan(clusterManifestPath, machinesManifestPath string) error {
 	params := os.SeedNodeParams{
 		PublicIP:             sp.GetMasterPublicAddress(),
 		PrivateIP:            sp.GetMasterPrivateAddress(),
+		ControlPlaneIP:       "172.17.0.2",
 		ClusterManifestPath:  clusterManifestPath,
 		MachinesManifestPath: machinesManifestPath,
 		SSHKeyPath:           sp.GetSSHKeyPath(),
