@@ -1046,7 +1046,7 @@ func (o OS) CreateNodeSetupPlan(params NodeParams) (*plan.Plan, error) {
 		IsMaster:                 params.IsMaster,
 		NodeIP:                   params.KubeletConfig.NodeIP,
 		NodeName:                 cfg.HostnameOverride,
-		MasterIP:                 params.MasterIP,
+		MasterIP:                 params.ControlPlaneIP,
 		MasterPort:               params.MasterPort,
 		Token:                    params.Token,
 		DiscoveryTokenCaCertHash: params.DiscoveryTokenCaCertHash,
