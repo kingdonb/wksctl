@@ -142,7 +142,7 @@ func (a *Applier) initiateCluster(clusterManifestPath, machinesManifestPath stri
 	if err := installer.SetupSeedNode(wksos.SeedNodeParams{
 		PublicIP:             sp.GetMasterPublicAddress(),
 		PrivateIP:            sp.GetMasterPrivateAddress(),
-		ControlPlaneIP:       "172.18.0.2",
+		ControlPlaneIP:       "172.17.0.2",
 		ClusterManifestPath:  clusterManifestPath,
 		MachinesManifestPath: machinesManifestPath,
 		SSHKeyPath:           a.Params.sshKeyPath,
