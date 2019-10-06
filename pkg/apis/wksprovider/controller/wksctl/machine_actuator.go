@@ -490,7 +490,7 @@ func (a *MachineActuator) getNodePlan(providerSpec *baremetalspecv1.BareMetalClu
 	}
 	plan, err := installer.CreateNodeSetupPlan(os.NodeParams{
 		IsMaster:                 machine.Labels["set"] == "master",
-		MasterIP:                 "172.17.0.2",
+		MasterIP:                 "172.18.0.2",
 		MasterPort:               6443, // TODO: read this dynamically, from somewhere.
 		Token:                    token,
 		DiscoveryTokenCaCertHash: secrets.DiscoveryTokenCaCertHash,
