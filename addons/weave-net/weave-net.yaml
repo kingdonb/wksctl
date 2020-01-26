@@ -5,13 +5,31 @@ items:
     kind: ServiceAccount
     metadata:
       name: weave-net
+      annotations:
+        cloud.weave.works/launcher-info: |-
+          {
+            "original-request": {
+              "url": "/k8s/net?k8s-version=1.15.9",
+              "date": "Sun Jan 26 2020 20:05:08 GMT+0000 (UTC)"
+            },
+            "email-address": "support@weave.works"
+          }
       labels:
         name: weave-net
       namespace: kube-system
-  - apiVersion: rbac.authorization.k8s.io/v1beta1
+  - apiVersion: rbac.authorization.k8s.io/v1
     kind: ClusterRole
     metadata:
       name: weave-net
+      annotations:
+        cloud.weave.works/launcher-info: |-
+          {
+            "original-request": {
+              "url": "/k8s/net?k8s-version=1.15.9",
+              "date": "Sun Jan 26 2020 20:05:08 GMT+0000 (UTC)"
+            },
+            "email-address": "support@weave.works"
+          }
       labels:
         name: weave-net
     rules:
@@ -26,7 +44,7 @@ items:
           - list
           - watch
       - apiGroups:
-          - extensions
+          - networking.k8s.io
         resources:
           - networkpolicies
         verbs:
@@ -34,24 +52,25 @@ items:
           - list
           - watch
       - apiGroups:
-          - 'networking.k8s.io'
+          - ''
         resources:
-          - networkpolicies
+          - nodes/status
         verbs:
-          - get
-          - list
-          - watch
-      - apiGroups:
-        - ''
-        resources:
-        - nodes/status
-        verbs:
-        - patch
-        - update
-  - apiVersion: rbac.authorization.k8s.io/v1beta1
+          - patch
+          - update
+  - apiVersion: rbac.authorization.k8s.io/v1
     kind: ClusterRoleBinding
     metadata:
       name: weave-net
+      annotations:
+        cloud.weave.works/launcher-info: |-
+          {
+            "original-request": {
+              "url": "/k8s/net?k8s-version=1.15.9",
+              "date": "Sun Jan 26 2020 20:05:08 GMT+0000 (UTC)"
+            },
+            "email-address": "support@weave.works"
+          }
       labels:
         name: weave-net
     roleRef:
@@ -62,20 +81,29 @@ items:
       - kind: ServiceAccount
         name: weave-net
         namespace: kube-system
-  - apiVersion: rbac.authorization.k8s.io/v1beta1
+  - apiVersion: rbac.authorization.k8s.io/v1
     kind: Role
     metadata:
       name: weave-net
-      namespace: kube-system
+      annotations:
+        cloud.weave.works/launcher-info: |-
+          {
+            "original-request": {
+              "url": "/k8s/net?k8s-version=1.15.9",
+              "date": "Sun Jan 26 2020 20:05:08 GMT+0000 (UTC)"
+            },
+            "email-address": "support@weave.works"
+          }
       labels:
         name: weave-net
+      namespace: kube-system
     rules:
       - apiGroups:
           - ''
-        resources:
-          - configmaps
         resourceNames:
           - weave-net
+        resources:
+          - configmaps
         verbs:
           - get
           - update
@@ -85,13 +113,22 @@ items:
           - configmaps
         verbs:
           - create
-  - apiVersion: rbac.authorization.k8s.io/v1beta1
+  - apiVersion: rbac.authorization.k8s.io/v1
     kind: RoleBinding
     metadata:
       name: weave-net
-      namespace: kube-system
+      annotations:
+        cloud.weave.works/launcher-info: |-
+          {
+            "original-request": {
+              "url": "/k8s/net?k8s-version=1.15.9",
+              "date": "Sun Jan 26 2020 20:05:08 GMT+0000 (UTC)"
+            },
+            "email-address": "support@weave.works"
+          }
       labels:
         name: weave-net
+      namespace: kube-system
     roleRef:
       kind: Role
       name: weave-net
@@ -104,15 +141,23 @@ items:
     kind: DaemonSet
     metadata:
       name: weave-net
+      annotations:
+        cloud.weave.works/launcher-info: |-
+          {
+            "original-request": {
+              "url": "/k8s/net?k8s-version=1.15.9",
+              "date": "Sun Jan 26 2020 20:05:08 GMT+0000 (UTC)"
+            },
+            "email-address": "support@weave.works"
+          }
       labels:
         name: weave-net
       namespace: kube-system
     spec:
-      # Wait 5 seconds to let pod connect before rolling next pod
+      minReadySeconds: 5
       selector:
         matchLabels:
           name: weave-net
-      minReadySeconds: 5
       template:
         metadata:
           labels:
@@ -128,7 +173,7 @@ items:
                     fieldRef:
                       apiVersion: v1
                       fieldPath: spec.nodeName
-              image: 'weaveworks/weave-kube:2.6.0'
+              image: 'docker.io/weaveworks/weave-kube:2.6.0'
               readinessProbe:
                 httpGet:
                   host: 127.0.0.1
@@ -154,7 +199,6 @@ items:
                   mountPath: /lib/modules
                 - name: xtables-lock
                   mountPath: /run/xtables.lock
-                  readOnly: false
             - name: weave-npc
               env:
                 - name: HOSTNAME
@@ -162,8 +206,7 @@ items:
                     fieldRef:
                       apiVersion: v1
                       fieldPath: spec.nodeName
-              image: 'weaveworks/weave-npc:2.6.0'
-#npc-args
+              image: 'docker.io/weaveworks/weave-npc:2.6.0'
               resources:
                 requests:
                   cpu: 10m
@@ -172,7 +215,6 @@ items:
               volumeMounts:
                 - name: xtables-lock
                   mountPath: /run/xtables.lock
-                  readOnly: false
           hostNetwork: true
           hostPID: true
           restartPolicy: Always
@@ -181,8 +223,6 @@ items:
           serviceAccountName: weave-net
           tolerations:
             - effect: NoSchedule
-              operator: Exists
-            - effect: NoExecute
               operator: Exists
           volumes:
             - name: weavedb
@@ -207,6 +247,5 @@ items:
               hostPath:
                 path: /run/xtables.lock
                 type: FileOrCreate
-          priorityClassName: system-node-critical
       updateStrategy:
         type: RollingUpdate
