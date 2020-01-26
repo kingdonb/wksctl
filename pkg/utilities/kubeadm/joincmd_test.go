@@ -69,7 +69,7 @@ func TestExtractJoinCmdLineContinuation(t *testing.T) {
 }
 
 func TestExtractCertificateKey(t *testing.T) {
-	cmd := "kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 --experimental-control-plane"
+	cmd := "kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866"
 	expectedKey := "f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07"
 	// case 1: --certificate-key <value>
 	key, err := kubeadm.ExtractCertificateKey(cmd + " --certificate-key " + expectedKey)

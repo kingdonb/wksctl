@@ -64,7 +64,7 @@ func (kj *KubeadmJoin) kubeadmJoinCmd(apiServerEndpoint string) string {
 		kubeJoinCmd.WriteString(strings.Join(kj.IgnorePreflightErrors, ","))
 	}
 	if kj.IsMaster {
-		kubeJoinCmd.WriteString(" --experimental-control-plane --certificate-key ")
+		kubeJoinCmd.WriteString(" --certificate-key ")
 		kubeJoinCmd.WriteString(kj.CertificateKey)
 	}
 	kubeJoinCmd.WriteString(" --node-name=")
